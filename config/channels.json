@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "la_1",
+    "name": "LA 1",
+    "code": "TVE",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TVE",
+    "category": "generalistas"
+  },
+  {
+    "id": "la_2",
+    "name": "LA 2",
+    "code": "LA2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/LA2",
+    "category": "generalistas"
+  },
+  {
+    "id": "antena_3",
+    "name": "Antena 3",
+    "code": "A3",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/A3",
+    "category": "generalistas"
+  },
+  {
+    "id": "cuatro",
+    "name": "Cuatro",
+    "code": "C4",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/C4",
+    "category": "generalistas"
+  },
+  {
+    "id": "telecinco",
+    "name": "Telecinco",
+    "code": "T5",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/T5",
+    "category": "generalistas"
+  },
+  {
+    "id": "la_sexta",
+    "name": "La Sexta",
+    "code": "SEXTA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/SEXTA",
+    "category": "generalistas"
+  },
+  {
+    "id": "movistar_plus",
+    "name": "Movistar Plus",
+    "code": "MPLUS",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MPLUS",
+    "category": "generalistas"
+  },
+  {
+    "id": "m_vamos",
+    "name": "M+ Vamos",
+    "code": "VAMOSD",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/VAMOSD",
+    "category": "deportes"
+  },
+  {
+    "id": "7_tv_regi_n_murcia",
+    "name": "7 TV Región Murcia",
+    "code": "7TVMUR",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/7TVMUR",
+    "category": "autonomicos"
+  },
+  {
+    "id": "m_estrenos",
+    "name": "M+ Estrenos",
+    "code": "MV1",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MV1",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_hits",
+    "name": "M+ Hits",
+    "code": "MHITS",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MHITS",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_originales",
+    "name": "M+ Originales",
+    "code": "MORIG",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MORIG",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_terror",
+    "name": "M+ Terror",
+    "code": "TERROR",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TERROR",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_documentales",
+    "name": "M+ Documentales",
+    "code": "MDOC",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MDOC",
+    "category": "documentales"
+  },
+  {
+    "id": "m_romance",
+    "name": "M+ Romance",
+    "code": "MROMA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MROMA",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_cl_sicos",
+    "name": "M+ Clásicos",
+    "code": "MCLAS",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MCLAS",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_acci_n",
+    "name": "M+ Acción",
+    "code": "CPACCI",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CPACCI",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_comedia",
+    "name": "M+ Comedia",
+    "code": "CPCOME",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CPCOME",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_drama",
+    "name": "M+ Drama",
+    "code": "CPCOLE",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CPCOLE",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_indie",
+    "name": "M+ Indie",
+    "code": "MINDI",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MINDI",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_cine_espa_ol",
+    "name": "M+ Cine Español",
+    "code": "DCESP",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DCESP",
+    "category": "cine_series"
+  },
+  {
+    "id": "hbo_max_avances",
+    "name": "HBO Max Avances",
+    "code": "MAXAVA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MAXAVA",
+    "category": "cine_series"
+  },
+  {
+    "id": "skyshowtime_1",
+    "name": "SkyShowtime 1",
+    "code": "SKYSHO",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/SKYSHO",
+    "category": "cine_series"
+  },
+  {
+    "id": "canal_flixol_1",
+    "name": "Canal FlixOlé 1",
+    "code": "FLIX1",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/FLIX1",
+    "category": "cine_series"
+  },
+  {
+    "id": "canal_flixol_2",
+    "name": "Canal FlixOlé 2",
+    "code": "FLIX2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/FLIX2",
+    "category": "cine_series"
+  },
+  {
+    "id": "tcm",
+    "name": "TCM",
+    "code": "TCM",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TCM",
+    "category": "cine_series"
+  },
+  {
+    "id": "axn_movies",
+    "name": "AXN Movies",
+    "code": "SET",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/SET",
+    "category": "cine_series"
+  },
+  {
+    "id": "bbc_series",
+    "name": "BBC Series",
+    "code": "BBDRA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BBDRA",
+    "category": "cine_series"
+  },
+  {
+    "id": "bbc_top_gear",
+    "name": "BBC Top Gear",
+    "code": "BBGEA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BBGEA",
+    "category": "documentales"
+  },
+  {
+    "id": "squirrel",
+    "name": "Squirrel",
+    "code": "SQUI",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/SQUI",
+    "category": "cine_series"
+  },
+  {
+    "id": "be_mad",
+    "name": "BE MAD",
+    "code": "BEMAD",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BEMAD",
+    "category": "cine_series"
+  },
+  {
+    "id": "star_channel",
+    "name": "STAR Channel",
+    "code": "FOXGE",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/FOXGE",
+    "category": "cine_series"
+  },
+  {
+    "id": "axn",
+    "name": "AXN",
+    "code": "AXN",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/AXN",
+    "category": "cine_series"
+  },
+  {
+    "id": "warner_tv",
+    "name": "Warner TV",
+    "code": "TNT",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TNT",
+    "category": "cine_series"
+  },
+  {
+    "id": "comedy_central",
+    "name": "Comedy Central",
+    "code": "PCM",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/PCM",
+    "category": "cine_series"
+  },
+  {
+    "id": "calle_13",
+    "name": "Calle 13",
+    "code": "CL13",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CL13",
+    "category": "cine_series"
+  },
+  {
+    "id": "cosmo",
+    "name": "COSMO",
+    "code": "COSMO",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/COSMO",
+    "category": "cine_series"
+  },
+  {
+    "id": "scifi",
+    "name": "SciFi",
+    "code": "SCI-FI",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/SCI-FI",
+    "category": "cine_series"
+  },
+  {
+    "id": "veo7",
+    "name": "Veo7",
+    "code": "VEO7",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/VEO7",
+    "category": "generalistas"
+  },
+  {
+    "id": "trece",
+    "name": "TRECE",
+    "code": "13TV",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/13TV",
+    "category": "generalistas"
+  },
+  {
+    "id": "energy",
+    "name": "Energy",
+    "code": "ENERGY",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ENERGY",
+    "category": "cine_series"
+  },
+  {
+    "id": "factor_a_de_ficci_n",
+    "name": "Factoría de Ficción",
+    "code": "FDFIC",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/FDFIC",
+    "category": "cine_series"
+  },
+  {
+    "id": "neox",
+    "name": "Neox",
+    "code": "NEOX",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/NEOX",
+    "category": "cine_series"
+  },
+  {
+    "id": "atreseries",
+    "name": "Atreseries",
+    "code": "ATRESS",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ATRESS",
+    "category": "cine_series"
+  },
+  {
+    "id": "m_vamos_2",
+    "name": "M+ Vamos 2",
+    "code": "VAM2SD",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/VAM2SD",
+    "category": "deportes"
+  },
+  {
+    "id": "m_vamos_3",
+    "name": "M+ Vamos 3",
+    "code": "MELLAV",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MELLAV",
+    "category": "deportes"
+  },
+  {
+    "id": "primera_federaci_n",
+    "name": "Primera Federación",
+    "code": "MCOPA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MCOPA",
+    "category": "deportes"
+  },
+  {
+    "id": "m_laliga",
+    "name": "M+ LALIGA",
+    "code": "MLIGA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MLIGA",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_laliga",
+    "name": "DAZN LALIGA",
+    "code": "DAZNLI",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DAZNLI",
+    "category": "deportes"
+  },
+  {
+    "id": "laliga_tv_hypermotion",
+    "name": "LALIGA TV HYPERMOTION",
+    "code": "MLIGS",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MLIGS",
+    "category": "deportes"
+  },
+  {
+    "id": "m_laliga_2",
+    "name": "M+ LALIGA 2",
+    "code": "MLIG1",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MLIG1",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_laliga_2",
+    "name": "DAZN LALIGA 2",
+    "code": "DAZNL2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DAZNL2",
+    "category": "deportes"
+  },
+  {
+    "id": "laliga_tv_hypermotion_2",
+    "name": "LALIGA TV HYPERMOTION 2",
+    "code": "MLIGS2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MLIGS2",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones",
+    "name": "M+ Liga de Campeones",
+    "code": "CHAPIO",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAPIO",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_2",
+    "name": "M+ Liga de Campeones 2",
+    "code": "CHAP1",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP1",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_3",
+    "name": "M+ Liga de Campeones  3",
+    "code": "CHAP2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP2",
+    "category": "deportes"
+  },
+  {
+    "id": "m_deportes",
+    "name": "M+ Deportes",
+    "code": "CPDEP",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CPDEP",
+    "category": "deportes"
+  },
+  {
+    "id": "m_deportes_2",
+    "name": "M+ Deportes 2",
+    "code": "ARTHUR",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ARTHUR",
+    "category": "deportes"
+  },
+  {
+    "id": "m_deportes_3",
+    "name": "M+ Deportes 3",
+    "code": "USOP2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/USOP2",
+    "category": "deportes"
+  },
+  {
+    "id": "m_baloncesto",
+    "name": "M+ Baloncesto",
+    "code": "MBALCT",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MBALCT",
+    "category": "deportes"
+  },
+  {
+    "id": "m_baloncesto_2",
+    "name": "M+ Baloncesto 2",
+    "code": "MBALC2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MBALC2",
+    "category": "deportes"
+  },
+  {
+    "id": "m_golf",
+    "name": "M+ Golf",
+    "code": "GOLF%2B",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/GOLF%2B",
+    "category": "deportes"
+  },
+  {
+    "id": "m_golf_2",
+    "name": "M+ Golf 2",
+    "code": "GOLF2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/GOLF2",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_f1",
+    "name": "DAZN F1",
+    "code": "MVF1",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MVF1",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_motogp",
+    "name": "DAZN MotoGP",
+    "code": "DAZMOT",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DAZMOT",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_1",
+    "name": "DAZN 1",
+    "code": "M1SD",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/M1SD",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_2",
+    "name": "DAZN 2",
+    "code": "M2SD",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/M2SD",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_baloncesto",
+    "name": "DAZN Baloncesto",
+    "code": "DAZBA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DAZBA",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_baloncesto_2",
+    "name": "DAZN Baloncesto 2",
+    "code": "DAZB2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DAZB2",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_baloncesto_3",
+    "name": "DAZN Baloncesto 3",
+    "code": "DAZB3",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DAZB3",
+    "category": "deportes"
+  },
+  {
+    "id": "eurosport_1",
+    "name": "Eurosport 1",
+    "code": "ESP",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ESP",
+    "category": "deportes"
+  },
+  {
+    "id": "eurosport_2",
+    "name": "Eurosport 2",
+    "code": "ESP2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ESP2",
+    "category": "deportes"
+  },
+  {
+    "id": "replay",
+    "name": "Replay",
+    "code": "GOL",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/GOL",
+    "category": "deportes"
+  },
+  {
+    "id": "teledeporte",
+    "name": "Teledeporte",
+    "code": "TDEP",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TDEP",
+    "category": "deportes"
+  },
+  {
+    "id": "real_madrid_tv",
+    "name": "Real Madrid TV",
+    "code": "REALM",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/REALM",
+    "category": "deportes"
+  },
+  {
+    "id": "caza_y_pesca",
+    "name": "Caza y Pesca",
+    "code": "CAZPES",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CAZPES",
+    "category": "deportes"
+  },
+  {
+    "id": "national_geographic",
+    "name": "National Geographic",
+    "code": "NATGEO",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/NATGEO",
+    "category": "documentales"
+  },
+  {
+    "id": "nat_geo_wild",
+    "name": "Nat Geo Wild",
+    "code": "NATGW",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/NATGW",
+    "category": "documentales"
+  },
+  {
+    "id": "bbc_history",
+    "name": "BBC History",
+    "code": "BBHIS",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BBHIS",
+    "category": "documentales"
+  },
+  {
+    "id": "discovery",
+    "name": "Discovery",
+    "code": "DCR",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DCR",
+    "category": "documentales"
+  },
+  {
+    "id": "bbc_earth",
+    "name": "BBC Earth",
+    "code": "BBCEAR",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BBCEAR",
+    "category": "documentales"
+  },
+  {
+    "id": "dmax",
+    "name": "DMAX",
+    "code": "DCRMAX",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DCRMAX",
+    "category": "documentales"
+  },
+  {
+    "id": "bbc_food",
+    "name": "BBC Food",
+    "code": "BBFOO",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BBFOO",
+    "category": "documentales"
+  },
+  {
+    "id": "bbc_lifestyle",
+    "name": "BBC Lifestyle",
+    "code": "BBCLIF",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BBCLIF",
+    "category": "documentales"
+  },
+  {
+    "id": "dkiss",
+    "name": "DKISS",
+    "code": "DKISS",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DKISS",
+    "category": "documentales"
+  },
+  {
+    "id": "divinity",
+    "name": "Divinity",
+    "code": "DIVINI",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DIVINI",
+    "category": "documentales"
+  },
+  {
+    "id": "nova",
+    "name": "Nova",
+    "code": "NOVA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/NOVA",
+    "category": "documentales"
+  },
+  {
+    "id": "mega",
+    "name": "Mega",
+    "code": "MEGA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MEGA",
+    "category": "documentales"
+  },
+  {
+    "id": "ten",
+    "name": "Ten",
+    "code": "TEN",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TEN",
+    "category": "generalistas"
+  },
+  {
+    "id": "baby_tv",
+    "name": "Baby TV",
+    "code": "BABY",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BABY",
+    "category": "infantil"
+  },
+  {
+    "id": "disney_channel",
+    "name": "Disney Channel",
+    "code": "PLAYDC",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/PLAYDC",
+    "category": "infantil"
+  },
+  {
+    "id": "nick_jr",
+    "name": "NICK JR",
+    "code": "NICKJR",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/NICKJR",
+    "category": "infantil"
+  },
+  {
+    "id": "nickelodeon",
+    "name": "Nickelodeon",
+    "code": "NICK",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/NICK",
+    "category": "infantil"
+  },
+  {
+    "id": "dreamworks",
+    "name": "Dreamworks",
+    "code": "DWSP",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DWSP",
+    "category": "infantil"
+  },
+  {
+    "id": "boing",
+    "name": "Boing",
+    "code": "BOING",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BOING",
+    "category": "infantil"
+  },
+  {
+    "id": "clan_tve",
+    "name": "Clan TVE",
+    "code": "CLANTV",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CLANTV",
+    "category": "infantil"
+  },
+  {
+    "id": "mtv",
+    "name": "MTV",
+    "code": "MTV",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MTV",
+    "category": "musica"
+  },
+  {
+    "id": "mezzo",
+    "name": "Mezzo",
+    "code": "MEZZO",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MEZZO",
+    "category": "musica"
+  },
+  {
+    "id": "mezzo_live",
+    "name": "Mezzo Live",
+    "code": "MEZZLI",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MEZZLI",
+    "category": "musica"
+  },
+  {
+    "id": "classica",
+    "name": "Classica",
+    "code": "CLASSD",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CLASSD",
+    "category": "musica"
+  },
+  {
+    "id": "24_horas",
+    "name": "24 Horas",
+    "code": "24H",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/24H",
+    "category": "noticias"
+  },
+  {
+    "id": "bbc_news",
+    "name": "BBC News",
+    "code": "BBC",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BBC",
+    "category": "noticias"
+  },
+  {
+    "id": "cnn_int",
+    "name": "CNN Int",
+    "code": "CNN",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CNN",
+    "category": "noticias"
+  },
+  {
+    "id": "euronews",
+    "name": "Euronews",
+    "code": "ENW",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ENW",
+    "category": "noticias"
+  },
+  {
+    "id": "al_jazeera_english",
+    "name": "Al Jazeera English",
+    "code": "ALJAZE",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ALJAZE",
+    "category": "noticias"
+  },
+  {
+    "id": "france24_fr",
+    "name": "FRANCE24 (FR)",
+    "code": "FRANCE",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/FRANCE",
+    "category": "noticias"
+  },
+  {
+    "id": "1_1_internacional",
+    "name": "1+1 Internacional",
+    "code": "INTEUA",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/INTEUA",
+    "category": "noticias"
+  },
+  {
+    "id": "cnbc",
+    "name": "CNBC",
+    "code": "NBC",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/NBC",
+    "category": "noticias"
+  },
+  {
+    "id": "tv5monde",
+    "name": "TV5MONDE",
+    "code": "TV5",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TV5",
+    "category": "noticias"
+  },
+  {
+    "id": "bloomberg",
+    "name": "Bloomberg",
+    "code": "BL",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/BL",
+    "category": "noticias"
+  },
+  {
+    "id": "el_toro_tv",
+    "name": "El Toro TV",
+    "code": "INTECO",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/INTECO",
+    "category": "noticias"
+  },
+  {
+    "id": "negocios_tv",
+    "name": "Negocios TV",
+    "code": "NEGOTV",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/NEGOTV",
+    "category": "noticias"
+  },
+  {
+    "id": "cgtn_espa_ol",
+    "name": "CGTN Español",
+    "code": "CCTV-E",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CCTV-E",
+    "category": "noticias"
+  },
+  {
+    "id": "ucl",
+    "name": "UCL",
+    "code": "UCL",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/UCL",
+    "category": "noticias"
+  },
+  {
+    "id": "canal_red",
+    "name": "Canal RED",
+    "code": "RED",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/RED",
+    "category": "noticias"
+  },
+  {
+    "id": "canal_sur_andaluc_a",
+    "name": "Canal Sur Andalucía",
+    "code": "ANTV",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ANTV",
+    "category": "autonomicos"
+  },
+  {
+    "id": "tvg_europa",
+    "name": "TVG Europa",
+    "code": "TVG",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TVG",
+    "category": "autonomicos"
+  },
+  {
+    "id": "canal_extremadura_sat",
+    "name": "Canal Extremadura Sat",
+    "code": "EXTREM",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/EXTREM",
+    "category": "autonomicos"
+  },
+  {
+    "id": "tv3_cat",
+    "name": "TV3 Cat",
+    "code": "TVC",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TVC",
+    "category": "autonomicos"
+  },
+  {
+    "id": "arag_n_tv_int",
+    "name": "Aragón TV Int",
+    "code": "ARAGON",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ARAGON",
+    "category": "autonomicos"
+  },
+  {
+    "id": "telemadrid_int",
+    "name": "Telemadrid Int.",
+    "code": "TELMIN",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/TELMIN",
+    "category": "autonomicos"
+  },
+  {
+    "id": "etb1on",
+    "name": "etb1ON",
+    "code": "ETB3",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ETB3",
+    "category": "autonomicos"
+  },
+  {
+    "id": "etb2on",
+    "name": "etb2ON",
+    "code": "ETB",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/ETB",
+    "category": "autonomicos"
+  },
+  {
+    "id": "m_laliga_3",
+    "name": "M+ LALIGA 3",
+    "code": "MLIG2",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MLIG2",
+    "category": "deportes"
+  },
+  {
+    "id": "m_laliga_4",
+    "name": "M+ LALIGA 4",
+    "code": "MLIG3",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MLIG3",
+    "category": "deportes"
+  },
+  {
+    "id": "laliga_tv_hypermotion_3",
+    "name": "LALIGA TV HYPERMOTION 3",
+    "code": "MLIGS3",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MLIGS3",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_4",
+    "name": "M+ Liga de Campeones  4",
+    "code": "CHAP3",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP3",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_5",
+    "name": "M+ Liga de Campeones 5",
+    "code": "CHAP4",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP4",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_6",
+    "name": "M+ Liga de Campeones 6",
+    "code": "CHAP5",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP5",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_7",
+    "name": "M+ Liga de Campeones 7",
+    "code": "CHAP6",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP6",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_8",
+    "name": "M+ Liga de Campeones 8",
+    "code": "CHAP7",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP7",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_9",
+    "name": "M+ Liga de Campeones 9",
+    "code": "CHAP8",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP8",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_10",
+    "name": "M+ Liga de Campeones 10",
+    "code": "CHAP9",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP9",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_11",
+    "name": "M+ Liga de Campeones 11",
+    "code": "CHAP10",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP10",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_12",
+    "name": "M+ Liga de Campeones 12",
+    "code": "CHAP11",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP11",
+    "category": "deportes"
+  },
+  {
+    "id": "m_liga_de_campeones_13",
+    "name": "M+ Liga de Campeones 13",
+    "code": "CHAP12",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/CHAP12",
+    "category": "deportes"
+  },
+  {
+    "id": "m_deportes_4",
+    "name": "M+ Deportes 4",
+    "code": "USOP3",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/USOP3",
+    "category": "deportes"
+  },
+  {
+    "id": "m_deportes_5",
+    "name": "M+ Deportes 5",
+    "code": "USOP11",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/USOP11",
+    "category": "deportes"
+  },
+  {
+    "id": "m_deportes_6",
+    "name": "M+ Deportes 6",
+    "code": "MULTI8",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MULTI8",
+    "category": "deportes"
+  },
+  {
+    "id": "m_baloncesto_3",
+    "name": "M+ Baloncesto 3",
+    "code": "MBALC3",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MBALC3",
+    "category": "deportes"
+  },
+  {
+    "id": "m_baloncesto_4",
+    "name": "M+ Baloncesto 4",
+    "code": "MBALC4",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MBALC4",
+    "category": "deportes"
+  },
+  {
+    "id": "m_baloncesto_5",
+    "name": "M+ Baloncesto 5",
+    "code": "MBALC5",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/MBALC5",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_3",
+    "name": "DAZN 3",
+    "code": "DAZN3",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DAZN3",
+    "category": "deportes"
+  },
+  {
+    "id": "dazn_4",
+    "name": "DAZN 4",
+    "code": "DAZN4",
+    "logo_url": "https://estatico.emisiondof6.com/recorte/m-DP/wpepg/DAZN4",
+    "category": "deportes"
+  }
+]

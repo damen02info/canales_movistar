@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movistar Plus+ Controller</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/static/icon.png">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Navbar -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-symbol">M+</div>
+        <div class="brand-text">
+          <span class="brand-title">HOST CONTROLLER</span>
+          <span class="brand-subtitle">AUTOMATION ENGINE</span>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <div id="connectionStatus" class="status-indicator">
+          <span class="status-dot"></span>
+          <span class="status-text">DESCONECTADO</span>
+        </div>
+        <button id="btnSettingsToggle" class="btn-icon" title="Ajustes del Sistema">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="content-container">
+      <!-- Playback Master Card -->
+      <section class="master-card">
+        <div class="master-header">
+          <div class="live-meta">
+            <span class="meta-label">EMISIÓN ACTUAL</span>
+            <h1 id="currentChannelName" class="meta-channel">Sin Emisión Activa</h1>
+            <div id="currentTechnicalInfo" class="meta-tech-details">Chrome inactivo — Sistema en espera</div>
+          </div>
+          <div class="master-power-action">
+            <button id="btnPower" class="btn-power">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+              <span id="powerText">ENCENDER</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Media Controls Toolbar -->
+        <div id="mediaToolbar" class="media-toolbar">
+          <button id="btnTogglePlay" class="btn-control" title="Pausar / Reanudar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            <span>Pausar</span>
+          </button>
+          <button id="btnMute" class="btn-control" title="Silenciar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <span>Mute</span>
+          </button>
+          <div class="volume-group">
+            <button id="btnVolDown" class="btn-control-mini" title="Bajar Volumen">-</button>
+            <span id="volumeIndicator" class="vol-text">50%</span>
+            <button id="btnVolUp" class="btn-control-mini" title="Subir Volumen">+</button>
+          </div>
+          <button id="btnFullscreen" class="btn-control" title="Pantalla Completa">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+            <span>Pantalla Completa</span>
+          </button>
+        </div>
+      </section>
+
+        <!-- Channel Grid Section -->
+      <section class="channels-section">
+        <div class="section-toolbar">
+          <div class="section-title-wrap">
+            <h2>Parrilla de Canales</h2>
+            <span id="channelCount" class="badge-count">144 canales</span>
+          </div>
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="channelSearch" placeholder="Buscar canal (LaLiga, La 1, F1, Cine...)" autocomplete="off">
+            <button id="btnClearSearch" class="btn-clear-search hidden" aria-label="Limpiar búsqueda">✕</button>
+          </div>
+        </div>
+
+        <!-- Category Filter Pills Bar (Swipeable on touch/mobile) -->
+        <nav class="category-nav" id="categoryNav" aria-label="Categorías de canales">
+          <button class="category-pill active" data-category="todos">
+            <span>Todos</span>
+            <span class="cat-badge" id="badge-todos">144</span>
+          </button>
+          <button class="category-pill" data-category="generalistas">
+            <span>Generalistas</span>
+            <span class="cat-badge" id="badge-generalistas">10</span>
+          </button>
+          <button class="category-pill" data-category="cine_series">
+            <span>Cine y Series</span>
+            <span class="cat-badge" id="badge-cine_series">31</span>
+          </button>
+          <button class="category-pill" data-category="deportes">
+            <span>Deportes y Fútbol</span>
+            <span class="cat-badge" id="badge-deportes">55</span>
+          </button>
+          <button class="category-pill" data-category="documentales">
+            <span>Documentales y Estilo</span>
+            <span class="cat-badge" id="badge-documentales">14</span>
+          </button>
+          <button class="category-pill" data-category="infantil">
+            <span>Infantil</span>
+            <span class="cat-badge" id="badge-infantil">7</span>
+          </button>
+          <button class="category-pill" data-category="musica">
+            <span>Música</span>
+            <span class="cat-badge" id="badge-musica">4</span>
+          </button>
+          <button class="category-pill" data-category="noticias">
+            <span>Noticias</span>
+            <span class="cat-badge" id="badge-noticias">15</span>
+          </button>
+          <button class="category-pill" data-category="autonomicos">
+            <span>Autonómicos</span>
+            <span class="cat-badge" id="badge-autonomicos">9</span>
+          </button>
+        </nav>
+
+        <div id="channelsContainer" class="channels-content">
+          <!-- Populated by JavaScript with categorized sections -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Settings Slide-over / Modal -->
+    <div id="settingsModal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Ajustes del Sistema</h3>
+          <button id="btnCloseSettings" class="btn-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="setting-row">
+            <div class="setting-info">
+              <label class="setting-title">Iniciar con Windows</label>
+              <p class="setting-desc">Ejecuta el servidor y la bandeja en segundo plano al encender el PC.</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="chkAutostart">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <label class="setting-title">Canal Predeterminado al Encender</label>
+              <p class="setting-desc">Canal que se sintonizará al pulsar el botón principal de encendido.</p>
+            </div>
+            <select id="selDefaultChannel" class="select-input">
+              <!-- Populated via JS -->
+            </select>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <label class="setting-title">Apagado por Inactividad</label>
+              <p class="setting-desc">Cierra Chrome automáticamente si no hay cambios tras X horas (0 = Desactivado).</p>
+            </div>
+            <select id="selIdleMinutes" class="select-input">
+              <option value="0">Desactivado</option>
+              <option value="120">2 Horas</option>
+              <option value="240">4 Horas</option>
+              <option value="360">6 Horas</option>
+            </select>
+          </div>
+
+          <div class="system-actions">
+            <button id="btnStopPlaybackModal" class="btn-secondary">Detener Reproducción</button>
+            <button id="btnShutdownApp" class="btn-danger">Cerrar Servidor y Salir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
