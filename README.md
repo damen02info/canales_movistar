@@ -65,12 +65,11 @@ PyInstaller packages the application into a single standalone executable contain
    ```
 5. You can copy `MovistarPlusController.exe` directly to any location on Windows. On first execution, it will generate its runtime folders (`data/` and `config/`) in the directory where the `.exe` is placed.
 
-### Automated Build via GitHub Actions
+### Automated Build & Releases via GitHub Actions
 
-A CI workflow is configured in `.github/workflows/build.yml`. When triggered:
-1. Go to the **Actions** tab in GitHub.
-2. Select **Build Windows Executable** and click **Run workflow** (or push to `main`/`master`).
-3. Download `MovistarPlusController` from the run's **Artifacts** section.
+A CI workflow is configured in `.github/workflows/build.yml`:
+- **Artifacts**: Every push to `main`/`master` or manual run compiles and uploads `MovistarPlusController.exe` as an artifact in the Actions tab.
+- **GitHub Releases**: Creating and pushing a git tag (e.g., `git tag v1.0.0 && git push origin v1.0.0`) or providing a tag name in the manual **Run workflow** input automatically creates a GitHub Release and attaches `MovistarPlusController.exe`.
 
 ### First-Time Authentication
 

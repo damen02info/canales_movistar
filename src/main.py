@@ -1,7 +1,45 @@
+import os
 import sys
 from pathlib import Path
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
+
+# ---------------------------------------------------------------------------
+# Standard stream fallback for windowed / noconsole execution
+# ---------------------------------------------------------------------------
+class _NullStream:
+    def write(self, text: str) -> int:
+        return len(text)
+
+    def flush(self) -> None:
+        pass
+
+    def isatty(self) -> bool:
+        return False
+
+if sys.stdout is None:
+    sys.stdout = _NullStream()
+
+if sys.stderr is None:
+    sys.stderr = _NullStream()
+
+if sys.stdin is None:
+    try:
+        sys.stdin = open(os.devnull, "r", encoding="utf-8")
+    except Exception:
+        pass
+
+if getattr(sys, "frozen", False):
+    try:
+        log_dir = Path(sys.executable).resolve().parent / "data"
+        log_dir.mkdir(parents=True, exist_ok=True)
+        log_file = open(log_dir / "app.log", "a", encoding="utf-8")
+        if isinstance(sys.stdout, _NullStream):
+            sys.stdout = log_file
+        if isinstance(sys.stderr, _NullStream):
+            sys.stderr = log_file
+    except Exception:
+        pass
 
 # ---------------------------------------------------------------------------
 # Path setup ensuring root imports work from any working directory
@@ -87,7 +125,7 @@ def run_server() -> None:
     app_settings = load_settings()
     server_port = int(app_settings.get("port", settings.port))
     settings.port = server_port
-    uvicorn.run("src.main:app", host=settings.host, port=server_port, reload=False)
+    uvicorn.run(app, host=settings.host, port=server_port, reload=False)
 
 if __name__ == "__main__":
     run_server()
