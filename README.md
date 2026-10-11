@@ -51,19 +51,26 @@ Automation engine and web dashboard for controlling Movistar Plus+ channel playb
 
 ## Building for Windows (`.exe`)
 
-PyInstaller packages the application into a distribution folder containing the executable, static assets, and configurations.
+PyInstaller packages the application into a single standalone executable containing all dependencies, static assets, and default configuration.
 
-1. Ensure Google Chrome and Python are installed on the Windows target machine.
+1. Ensure Google Chrome and Python are installed on the Windows machine.
 2. In the project root, activate your virtual environment with all dependencies installed.
 3. Run PyInstaller using the provided `.spec` file:
    ```cmd
    pyinstaller MovistarPlusController.spec
    ```
-4. The output will be located in:
+4. The standalone binary will be generated at:
    ```
-   dist/MovistarPlusController/
+   dist/MovistarPlusController.exe
    ```
-5. Distribute the entire `dist/MovistarPlusController` folder (do not move `MovistarPlusController.exe` out of its folder).
+5. You can copy `MovistarPlusController.exe` directly to any location on Windows. On first execution, it will generate its runtime folders (`data/` and `config/`) in the directory where the `.exe` is placed.
+
+### Automated Build via GitHub Actions
+
+A CI workflow is configured in `.github/workflows/build.yml`. When triggered:
+1. Go to the **Actions** tab in GitHub.
+2. Select **Build Windows Executable** and click **Run workflow** (or push to `main`/`master`).
+3. Download `MovistarPlusController` from the run's **Artifacts** section.
 
 ### First-Time Authentication
 
