@@ -62,7 +62,6 @@ class BrowserManager:
 
         launch_args = [
             "--start-fullscreen",
-            "--test-type",
             "--no-default-browser-check",
             "--disable-infobars",
             "--disable-notifications",
@@ -78,6 +77,20 @@ class BrowserManager:
         )
 
         self._page = self._context.pages[0] if self._context.pages else await self._context.new_page()
+        self._attach_page_debug_listeners(self._page)
+
+    def _attach_page_debug_listeners(self, page: Page) -> None:
+        def on_console(msg: Any) -> None:
+            text = msg.text
+            msg_type = msg.type
+            if msg_type in ("error", "warning") or "PL01" in text or "error" in text.lower() or "widevine" in text.lower() or "drm" in text.lower():
+                logger.info(f"[BROWSER-CONSOLE:{msg_type.upper()}] {text}")
+
+        def on_page_error(err: Any) -> None:
+            logger.error(f"[BROWSER-UNCAUGHT-EXCEPTION] {err}")
+
+        page.on("console", on_console)
+        page.on("pageerror", on_page_error)
 
     async def _handle_cookies(self) -> None:
         if not self._page:
@@ -88,6 +101,37 @@ class BrowserManager:
                 logger.info("Dismissing cookie banner...")
                 await cookie_btn.first.click()
                 await self._page.wait_for_timeout(300)
+        except Exception:
+            pass
+
+    async def _handle_error_modal(self) -> bool:
+        if not self._page:
+            return False
+        try:
+            from src.browser.selectors import ERROR_MODAL_ACCEPT
+            modal_btn = self._page.locator(ERROR_MODAL_ACCEPT)
+            if await modal_btn.first.is_visible(timeout=1000):
+                logger.warning("Detected error modal (e.g. PL01_417), dismissing dialog...")
+                await modal_btn.first.click()
+                await self._page.wait_for_timeout(500)
+                return True
+        except Exception:
+            pass
+        return False
+
+    async def _teardown_current_player(self) -> None:
+        if not self._page:
+            return
+        try:
+            await self._page.evaluate("""() => {
+                const video = document.querySelector('video');
+                if (video) {
+                    video.pause();
+                    video.removeAttribute('src');
+                    video.load();
+                }
+            }""")
+            await self._page.keyboard.press("Escape")
         except Exception:
             pass
 
@@ -132,10 +176,10 @@ class BrowserManager:
             t_start = time.time()
             logger.info(f">>> INICIANDO SINTONIZACIÓN: '{channel_name}' (ID: {channel_info['id']})")
 
-            # 1. Check browser lifecycle and return cleanly to grid
+            # 1. Check browser lifecycle, teardown any active player, and return cleanly to grid
             if self.is_running():
                 try:
-                    await self._page.keyboard.press("Escape")
+                    await self._teardown_current_player()
                     await self._page.goto(CHANNELS_URL, wait_until="domcontentloaded")
                 except Exception as exc:
                     logger.warning(f"Session reconnect needed ({exc}), relaunching Chrome...")
@@ -156,17 +200,29 @@ class BrowserManager:
             # 3. Search and click channel
             await self._locate_and_click_channel(channel_name)
 
-            # 4. Wait for video element
+            # 4. Check for warning dialogs before player loads
+            dismissed = await self._handle_error_modal()
+            if dismissed:
+                logger.info(f"Retrying click for '{channel_name}' after error dismissal...")
+                await self._locate_and_click_channel(channel_name)
+
+            # 5. Wait for video element
             logger.info("Waiting for video player to initialize...")
             await self._page.wait_for_selector(VIDEO_TAG, timeout=settings.video_wait_timeout_ms)
 
-            # 5. Trigger player fullscreen directly via keyboard (avoid pointer overlay issues)
+            # 6. Check once more if error modal popped up after player mount
+            if await self._handle_error_modal():
+                logger.info(f"Retrying channel '{channel_name}' after player error modal dismissal...")
+                await self._locate_and_click_channel(channel_name)
+                await self._page.wait_for_selector(VIDEO_TAG, timeout=settings.video_wait_timeout_ms)
+
+            # 7. Trigger player fullscreen directly via keyboard (avoid pointer overlay issues)
             logger.info("Setting player to fullscreen via keyboard...")
             await self._page.keyboard.press("f")
             await self._page.wait_for_timeout(300)
             self._current_channel = channel_info
 
-            # 6. Evaluate video status
+            # 8. Evaluate video status
             details = None
             try:
                 details = await self._page.evaluate("""() => {
