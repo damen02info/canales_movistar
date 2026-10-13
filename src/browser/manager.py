@@ -65,6 +65,7 @@ class BrowserManager:
             "--no-default-browser-check",
             "--disable-infobars",
             "--disable-notifications",
+            "--disable-blink-features=AutomationControlled",
         ]
 
         self._context = await self._playwright.chromium.launch_persistent_context(
@@ -72,12 +73,19 @@ class BrowserManager:
             channel=settings.browser_channel,
             headless=settings.headless,
             args=launch_args,
-            ignore_default_args=["--no-sandbox"],
+            ignore_default_args=["--no-sandbox", "--enable-automation"],
             no_viewport=True,
         )
 
+        await self._context.add_init_script("""
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined
+            });
+        """)
+
         self._page = self._context.pages[0] if self._context.pages else await self._context.new_page()
         self._attach_page_debug_listeners(self._page)
+
 
     def _attach_page_debug_listeners(self, page: Page) -> None:
         def on_console(msg: Any) -> None:
