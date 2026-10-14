@@ -85,7 +85,6 @@ class BrowserManager:
             "--disable-notifications",
             "--disable-session-crashed-bubble",
             "--hide-crash-restore-bubble",
-            "--disable-blink-features=AutomationControlled",
         ]
 
         self._context = await self._playwright.chromium.launch_persistent_context(
@@ -101,6 +100,12 @@ class BrowserManager:
             ],
             no_viewport=True,
         )
+
+        await self._context.add_init_script("""
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined
+            });
+        """)
 
         self._page = self._context.pages[0] if self._context.pages else await self._context.new_page()
 
