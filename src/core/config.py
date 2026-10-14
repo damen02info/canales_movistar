@@ -18,9 +18,6 @@ if not CHANNELS_FILE.exists() and (BUNDLE_DIR / "config" / "channels.json").exis
     CHANNELS_FILE = BUNDLE_DIR / "config" / "channels.json"
 
 CHANNELS_URL = "https://ver.movistarplus.es/canales"
-EXTENSION_DIR = BASE_DIR / "src" / "browser" / "extension"
-if not EXTENSION_DIR.exists() and (BUNDLE_DIR / "src" / "browser" / "extension").exists():
-    EXTENSION_DIR = BUNDLE_DIR / "src" / "browser" / "extension"
 
 class Settings(BaseModel):
     app_name: str = "Movistar Plus+ Channel Controller"

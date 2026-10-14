@@ -7,7 +7,6 @@ base_dir = Path.cwd()
 datas = [
     (str(base_dir / "static"), "static"),
     (str(base_dir / "config" / "channels.json"), "config"),
-    (str(base_dir / "src" / "browser" / "extension"), "src/browser/extension"),
 ]
 
 a = Analysis(
