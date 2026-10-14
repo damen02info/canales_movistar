@@ -1,332 +1,167 @@
 import asyncio
 import logging
+import os
+import shutil
+import subprocess
+import sys
 import time
+from pathlib import Path
 from typing import Any
-from playwright.async_api import BrowserContext, Page, Playwright, async_playwright
 
-from src.browser.selectors import (
-    CHANNEL_POSTER,
-    COOKIE_ACCEPT,
-    VIDEO_TAG,
-    channel_button_selector,
-)
-from src.core.config import CHANNELS_URL, PROFILE_DIR, settings
+from src.browser.bridge import bridge
+from src.core.config import CHANNELS_URL, EXTENSION_DIR, PROFILE_DIR, settings
 
 # ---------------------------------------------------------------------------
 # Logger setup
 # ---------------------------------------------------------------------------
 logger = logging.getLogger("movistar.browser")
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 # ---------------------------------------------------------------------------
-# Browser and playback lifecycle manager
+# Browser and playback lifecycle manager (Native Chrome + WebSocket Extension)
 # ---------------------------------------------------------------------------
 class BrowserManager:
     def __init__(self) -> None:
         self._lock = asyncio.Lock()
-        self._playwright: Playwright | None = None
-        self._context: BrowserContext | None = None
-        self._page: Page | None = None
-        self._current_channel: dict | None = None
+        self._process: subprocess.Popen[bytes] | None = None
+        self._current_channel: dict[str, Any] | None = None
+
+    def _find_chrome_executable(self) -> str:
+        # 1. Check environment variable override
+        env_chrome = os.environ.get("CHROME_BIN")
+        if env_chrome and Path(env_chrome).exists():
+            return env_chrome
+
+        # 2. Windows standard candidate locations
+        if sys.platform == "win32":
+            win_candidates = [
+                Path(os.environ.get("PROGRAMFILES", "C:\\Program Files")) / "Google" / "Chrome" / "Application" / "chrome.exe",
+                Path(os.environ.get("PROGRAMFILES(X86)", "C:\\Program Files (x86)")) / "Google" / "Chrome" / "Application" / "chrome.exe",
+                Path(os.environ.get("LOCALAPPDATA", "")) / "Google" / "Chrome" / "Application" / "chrome.exe",
+            ]
+            for candidate in win_candidates:
+                if candidate.exists():
+                    return str(candidate)
+
+        # 3. Linux and Unix search paths
+        unix_names = ["google-chrome", "google-chrome-stable", "chromium", "chromium-browser"]
+        for name in unix_names:
+            resolved = shutil.which(name)
+            if resolved:
+                return resolved
+
+        unix_paths = [
+            Path("/usr/bin/google-chrome"),
+            Path("/usr/bin/google-chrome-stable"),
+            Path("/opt/google/chrome/chrome"),
+        ]
+        for candidate in unix_paths:
+            if candidate.exists():
+                return str(candidate)
+
+        raise FileNotFoundError("Google Chrome official binary not found on this system.")
 
     def is_running(self) -> bool:
-        if self._context is None or self._page is None:
+        if self._process is None:
             return False
-        try:
-            return not self._page.is_closed()
-        except Exception:
-            return False
+        return self._process.poll() is None
 
     async def _cleanup(self) -> None:
-        logger.info("Cleaning up browser session resources...")
-        try:
-            if self._context:
-                await self._context.close()
-        except Exception:
-            pass
-        try:
-            if self._playwright:
-                await self._playwright.stop()
-        except Exception:
-            pass
-        self._context = None
-        self._page = None
-        self._playwright = None
+        if self._process:
+            logger.info("Terminating existing Chrome browser process...")
+            try:
+                self._process.terminate()
+                # Non-blocking poll wait
+                for _ in range(10):
+                    if self._process.poll() is not None:
+                        break
+                    await asyncio.sleep(0.1)
+                if self._process.poll() is None:
+                    self._process.kill()
+            except Exception as exc:
+                logger.warning(f"Error during Chrome process termination: {exc}")
+        self._process = None
         self._current_channel = None
 
     async def _launch_browser(self) -> None:
         await self._cleanup()
-        logger.info(f"Launching official Google Chrome targeting: {PROFILE_DIR}")
-        PROFILE_DIR.mkdir(parents=True, exist_ok=True)
-        self._playwright = await async_playwright().start()
+        chrome_bin = self._find_chrome_executable()
+        logger.info(f"Launching official Chrome ({chrome_bin}) targeting profile: {PROFILE_DIR}")
 
-        launch_args = [
+        PROFILE_DIR.mkdir(parents=True, exist_ok=True)
+
+        cmd = [
+            chrome_bin,
+            f"--user-data-dir={PROFILE_DIR}",
+            f"--load-extension={EXTENSION_DIR}",
             "--start-fullscreen",
             "--no-default-browser-check",
             "--disable-infobars",
             "--disable-notifications",
+            "--disable-search-engine-choice-screen",
+            CHANNELS_URL,
         ]
 
-        self._context = await self._playwright.chromium.launch_persistent_context(
-            user_data_dir=str(PROFILE_DIR),
-            channel=settings.browser_channel,
-            headless=settings.headless,
-            args=launch_args,
-            ignore_default_args=["--no-sandbox", "--enable-automation"],
-            no_viewport=True,
+        logger.info(f"Executing: {' '.join(cmd)}")
+        self._process = subprocess.Popen(
+            cmd,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
         )
 
-        await self._context.add_init_script("""
-            Object.defineProperty(navigator, 'webdriver', {
-                get: () => undefined
-            });
-        """)
+        logger.info("Waiting for Chrome extension WebSocket connection...")
+        connected = await bridge.wait_for_connection(timeout=30.0)
+        if not connected:
+            await self._cleanup()
+            raise TimeoutError("Timed out waiting for Chrome extension to connect via WebSocket.")
+        logger.info("Chrome extension successfully connected and ready.")
 
-        self._page = self._context.pages[0] if self._context.pages else await self._context.new_page()
-        self._attach_page_debug_listeners(self._page)
-
-
-    def _attach_page_debug_listeners(self, page: Page) -> None:
-        def on_console(msg: Any) -> None:
-            text = msg.text
-            msg_type = msg.type
-            if msg_type in ("error", "warning") or "PL01" in text or "error" in text.lower() or "widevine" in text.lower() or "drm" in text.lower():
-                logger.info(f"[BROWSER-CONSOLE:{msg_type.upper()}] {text}")
-
-        def on_page_error(err: Any) -> None:
-            logger.error(f"[BROWSER-UNCAUGHT-EXCEPTION] {err}")
-
-        page.on("console", on_console)
-        page.on("pageerror", on_page_error)
-
-    async def _handle_cookies(self) -> None:
-        if not self._page:
-            return
-        try:
-            cookie_btn = self._page.locator(COOKIE_ACCEPT)
-            if await cookie_btn.first.is_visible(timeout=1500):
-                logger.info("Dismissing cookie banner...")
-                await cookie_btn.first.click()
-                await self._page.wait_for_timeout(300)
-        except Exception:
-            pass
-
-    async def _handle_error_modal(self) -> bool:
-        if not self._page:
-            return False
-        try:
-            from src.browser.selectors import ERROR_MODAL_ACCEPT
-            modal_btn = self._page.locator(ERROR_MODAL_ACCEPT)
-            if await modal_btn.first.is_visible(timeout=1000):
-                logger.warning("Detected error modal (e.g. PL01_417), dismissing dialog...")
-                await modal_btn.first.click()
-                await self._page.wait_for_timeout(500)
-                return True
-        except Exception:
-            pass
-        return False
-
-    async def _teardown_current_player(self) -> None:
-        if not self._page:
-            return
-        try:
-            await self._page.evaluate("""() => {
-                const video = document.querySelector('video');
-                if (video) {
-                    video.pause();
-                    video.removeAttribute('src');
-                    video.load();
-                }
-            }""")
-            await self._page.keyboard.press("Escape")
-        except Exception:
-            pass
-
-    async def _locate_and_click_channel(self, channel_name: str) -> None:
-        assert self._page is not None
-        selector = channel_button_selector(channel_name)
-        channel_loc = self._page.locator(selector)
-
-        # 1. Reset scroll to top of page so search is deterministic
-        logger.info(f"Resetting scroll to top and searching for '{channel_name}'...")
-        await self._page.evaluate("window.scrollTo(0, 0)")
-        await self._page.wait_for_timeout(250)
-
-        # 2. Scroll incrementally downwards to discover lazy-loaded channel posters
-        found = False
-        for attempt in range(25):
-            if await channel_loc.count() > 0 and await channel_loc.first.is_visible():
-                found = True
-                logger.info(f"Channel '{channel_name}' found at scroll step {attempt + 1}")
-                break
-            await self._page.mouse.wheel(0, 1000)
-            await self._page.wait_for_timeout(250)
-
-        if not found and await channel_loc.count() > 0:
-            await channel_loc.first.scroll_into_view_if_needed()
-            found = await channel_loc.first.is_visible()
-
-        if not found:
-            logger.error(f"Channel '{channel_name}' not found after scrolling grid.")
-            raise RuntimeError(f"Canal '{channel_name}' no encontrado en la parrilla.")
-
-        # 3. Click target channel button
-        btn = channel_loc.first
-        await btn.scroll_into_view_if_needed()
-        await self._page.wait_for_timeout(150)
-        logger.info(f"Clicking channel button for '{channel_name}'...")
-        await btn.click()
-
-    async def start_playback(self, channel_info: dict) -> dict[str, Any]:
+    async def start_playback(self, channel_info: dict[str, Any]) -> dict[str, Any]:
         async with self._lock:
             channel_name = channel_info["name"]
             t_start = time.time()
             logger.info(f">>> INICIANDO SINTONIZACIÓN: '{channel_name}' (ID: {channel_info['id']})")
 
-            # 1. Check browser lifecycle, teardown any active player, and return cleanly to grid
-            if self.is_running():
-                try:
-                    await self._teardown_current_player()
-                    await self._page.goto(CHANNELS_URL, wait_until="domcontentloaded")
-                except Exception as exc:
-                    logger.warning(f"Session reconnect needed ({exc}), relaunching Chrome...")
-                    await self._launch_browser()
-                    assert self._page is not None
-                    await self._page.goto(CHANNELS_URL, wait_until="domcontentloaded")
-            else:
+            if not self.is_running() or not bridge.is_connected():
                 await self._launch_browser()
-                assert self._page is not None
-                await self._page.goto(CHANNELS_URL, wait_until="domcontentloaded")
 
-            await self._handle_cookies()
+            timeout_sec = max(15.0, settings.page_load_timeout_ms / 1000.0)
+            res = await bridge.send_command(
+                "play_channel",
+                channel=channel_info,
+                timeout=timeout_sec,
+            )
 
-            # 2. Wait for grid posters to initialize
-            logger.info("Waiting for channel posters to load...")
-            await self._page.wait_for_selector(CHANNEL_POSTER, timeout=settings.page_load_timeout_ms)
-
-            # 3. Search and click channel
-            await self._locate_and_click_channel(channel_name)
-
-            # 4. Check for warning dialogs before player loads
-            dismissed = await self._handle_error_modal()
-            if dismissed:
-                logger.info(f"Retrying click for '{channel_name}' after error dismissal...")
-                await self._locate_and_click_channel(channel_name)
-
-            # 5. Wait for video element
-            logger.info("Waiting for video player to initialize...")
-            await self._page.wait_for_selector(VIDEO_TAG, timeout=settings.video_wait_timeout_ms)
-
-            # 6. Check once more if error modal popped up after player mount
-            if await self._handle_error_modal():
-                logger.info(f"Retrying channel '{channel_name}' after player error modal dismissal...")
-                await self._locate_and_click_channel(channel_name)
-                await self._page.wait_for_selector(VIDEO_TAG, timeout=settings.video_wait_timeout_ms)
-
-            # 7. Trigger player fullscreen directly via keyboard (avoid pointer overlay issues)
-            logger.info("Setting player to fullscreen via keyboard...")
-            await self._page.keyboard.press("f")
-            await self._page.wait_for_timeout(300)
             self._current_channel = channel_info
-
-            # 8. Evaluate video status
-            details = None
-            try:
-                details = await self._page.evaluate("""() => {
-                    const v = document.querySelector('video');
-                    if (!v) return null;
-                    return {
-                        paused: v.paused,
-                        readyState: v.readyState,
-                        width: v.videoWidth,
-                        height: v.videoHeight,
-                        volume: v.volume,
-                        muted: v.muted
-                    };
-                }""")
-            except Exception:
-                pass
-
             duration = round(time.time() - t_start, 2)
             logger.info(f">>> SINTONIZACIÓN COMPLETADA en {duration}s: '{channel_name}'")
 
             return {
                 "status": "playing",
                 "channel": channel_info,
-                "video": details,
+                "video": res.get("video") if isinstance(res, dict) else None,
             }
 
     async def stop_playback(self) -> dict[str, str]:
         async with self._lock:
-            logger.info("Stopping playback session...")
+            logger.info("Stopping playback session and terminating browser...")
             await self._cleanup()
             return {"status": "stopped"}
 
     async def send_control(self, action: str) -> dict[str, Any]:
         async with self._lock:
-            if not self.is_running() or not self._page or self._page.is_closed():
-                raise RuntimeError("No active playback session.")
+            if not self.is_running() or not bridge.is_connected():
+                raise RuntimeError("No active playback session or extension disconnected.")
 
             act = action.lower()
             logger.info(f"Applying media control: '{act}'")
+            res = await bridge.send_command("control", control_action=act, timeout=10.0)
 
-            if act == "play":
-                await self._page.evaluate("document.querySelector('video')?.play()")
-            elif act == "pause":
-                await self._page.evaluate("document.querySelector('video')?.pause()")
-            elif act in ("toggle_play", "toggle"):
-                await self._page.evaluate("""() => {
-                    const v = document.querySelector('video');
-                    if (v) {
-                        if (v.paused) { v.play(); } else { v.pause(); }
-                    }
-                }""")
-            elif act == "fullscreen":
-                await self._page.keyboard.press("f")
-            elif act == "mute":
-                await self._page.evaluate("""() => {
-                    const v = document.querySelector('video');
-                    if (v) {
-                        v.muted = !v.muted;
-                    }
-                }""")
-            elif act == "volume_up":
-                await self._page.evaluate("""() => {
-                    const v = document.querySelector('video');
-                    if (v) {
-                        v.muted = false;
-                        v.volume = Math.min(1.0, v.volume + 0.1);
-                    }
-                }""")
-            elif act == "volume_down":
-                await self._page.evaluate("""() => {
-                    const v = document.querySelector('video');
-                    if (v) {
-                        v.volume = Math.max(0.0, v.volume - 0.1);
-                    }
-                }""")
-            else:
-                raise ValueError(f"Unsupported action: '{action}'")
-
-            details = None
-            try:
-                details = await self._page.evaluate("""() => {
-                    const v = document.querySelector('video');
-                    if (!v) return null;
-                    return {
-                        paused: v.paused,
-                        volume: v.volume,
-                        muted: v.muted
-                    };
-                }""")
-            except Exception:
-                pass
-
-            return {"status": "ok", "action_applied": act, "video": details}
+            video_details = res.get("video") if isinstance(res, dict) else None
+            return {"status": "ok", "action_applied": act, "video": video_details}
 
     async def get_status(self) -> dict[str, Any]:
         async with self._lock:
-            if not self.is_running():
+            if not self.is_running() or not bridge.is_connected():
                 return {
                     "active": False,
                     "state": "stopped",
@@ -334,31 +169,21 @@ class BrowserManager:
                     "video": None,
                 }
 
-            assert self._page is not None
-            details = None
             try:
-                details = await self._page.evaluate("""() => {
-                    const v = document.querySelector('video');
-                    if (!v) return null;
-                    return {
-                        paused: v.paused,
-                        readyState: v.readyState,
-                        width: v.videoWidth,
-                        height: v.videoHeight,
-                        volume: v.volume,
-                        muted: v.muted
-                    };
-                }""")
+                res = await bridge.send_command("status", timeout=5.0)
+                state = res.get("state", "idle")
+                return {
+                    "active": res.get("active", True),
+                    "state": state,
+                    "channel": self._current_channel,
+                    "video": res.get("video"),
+                }
             except Exception:
-                pass
-
-            state = "playing" if details and not details.get("paused") else "paused" if details else "idle"
-
-            return {
-                "active": True,
-                "state": state,
-                "channel": self._current_channel,
-                "video": details,
-            }
+                return {
+                    "active": True,
+                    "state": "idle",
+                    "channel": self._current_channel,
+                    "video": None,
+                }
 
 manager = BrowserManager()

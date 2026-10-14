@@ -3,10 +3,11 @@ import logging
 import os
 import signal
 from typing import Any
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect, status
 from pydantic import BaseModel
 
 from src.api.schemas import ChannelItem, ControlRequest, PlaybackResponse, PlayRequest, StatusResponse
+from src.browser.bridge import bridge
 from src.browser.manager import manager
 from src.core.autostart import get_autostart_enabled, load_settings, save_settings, set_autostart_enabled
 from src.core.catalog import catalog
@@ -87,6 +88,16 @@ async def control_playback(req: ControlRequest) -> dict[str, Any]:
 @router.get("/playback/status", response_model=StatusResponse)
 async def get_status() -> dict[str, Any]:
     return await manager.get_status()
+
+@router.websocket("/ws/browser")
+async def ws_browser_api_endpoint(websocket: WebSocket) -> None:
+    await bridge.register(websocket)
+    try:
+        while True:
+            msg = await websocket.receive_json()
+            bridge.handle_message(msg)
+    except (WebSocketDisconnect, Exception):
+        bridge.unregister()
 
 # ---------------------------------------------------------------------------
 # Settings and system management endpoints

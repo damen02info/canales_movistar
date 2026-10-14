@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Movistar Plus Controller",
+  "version": "1.0.0",
+  "description": "Local controller extension for Movistar Plus+ automation",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ver.movistarplus.es/*",
+        "https://www.movistarplus.es/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://ver.movistarplus.es/*",
+    "https://www.movistarplus.es/*",
+    "http://127.0.0.1:*/*",
+    "ws://127.0.0.1:*/*"
+  ]
+}

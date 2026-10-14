@@ -117,7 +117,19 @@ if STATIC_DIR.exists():
         fav_icon = STATIC_DIR / "favicon.ico"
         if fav_icon.exists():
             return FileResponse(fav_icon, media_type="image/x-icon")
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
+# WebSocket bridge endpoint for Chrome extension
+from fastapi import WebSocket, WebSocketDisconnect
+from src.browser.bridge import bridge
+
+@app.websocket("/ws/browser")
+async def ws_browser_endpoint(websocket: WebSocket) -> None:
+    await bridge.register(websocket)
+    try:
+        while True:
+            msg = await websocket.receive_json()
+            bridge.handle_message(msg)
+    except (WebSocketDisconnect, Exception):
+        bridge.unregister()
 
 app.include_router(router)
 
