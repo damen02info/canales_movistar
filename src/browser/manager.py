@@ -65,7 +65,6 @@ class BrowserManager:
             "--no-default-browser-check",
             "--disable-infobars",
             "--disable-notifications",
-            "--disable-blink-features=AutomationControlled",
         ]
 
         self._context = await self._playwright.chromium.launch_persistent_context(
